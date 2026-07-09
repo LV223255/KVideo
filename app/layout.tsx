@@ -16,6 +16,7 @@ import { ScrollPositionManager } from "@/components/ScrollPositionManager";
 import { LocaleProvider } from "@/components/LocaleProvider";
 import { RuntimeFeaturesProvider } from "@/components/RuntimeFeaturesProvider";
 import { VideoTogetherController } from '@/components/VideoTogetherController';
+import { shouldEnableVercelAnalytics } from '@/lib/config/deployment';
 import { getRuntimeFeatures } from "@/lib/server/runtime-features";
 import { resolveSiteIconSrc } from '@/lib/server/site-icon';
 import fs from 'fs';
@@ -86,6 +87,7 @@ export default async function RootLayout({
     process.env.VIDEOTOGETHER_SCRIPT_URL?.trim() || DEFAULT_VIDEOTOGETHER_SCRIPT_URL;
   const videoTogetherSettingUrl = process.env.VIDEOTOGETHER_SETTING_URL?.trim();
   const videoTogetherEnvEnabled = process.env.VIDEOTOGETHER_ENABLED !== 'false';
+  const vercelAnalyticsEnabled = shouldEnableVercelAnalytics();
 
   return (
     <html lang="zh-CN" suppressHydrationWarning>
@@ -136,7 +138,7 @@ export default async function RootLayout({
                   <ScrollPositionManager />
                 </PasswordGate>
               </TVProvider>
-              <Analytics />
+              {vercelAnalyticsEnabled ? <Analytics /> : null}
               <ServiceWorkerRegister />
             </RuntimeFeaturesProvider>
           </ThemeProvider>

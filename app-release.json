@@ -4,8 +4,18 @@
     "name": "KVideo",
     "branch": "main"
   },
-  "currentVersion": "4.9.4",
+  "currentVersion": "4.9.5",
   "releases": [
+    {
+      "version": "4.9.5",
+      "publishedAt": "2026-07-09",
+      "title": "修复 Docker 登录页 Analytics 404",
+      "notes": [
+        "Vercel Analytics 现在只会在真实 Vercel 部署中注入，Docker、自托管和 Cloudflare Pages 不再请求 /_vercel/insights/script.js。",
+        "Cloudflare 部署环境判定优先于 Vercel 风格环境变量，避免适配器环境被误判为 Vercel。",
+        "新增部署环境单元测试，覆盖自托管、Vercel、Cloudflare 和混合环境变量场景。"
+      ]
+    },
     {
       "version": "4.9.4",
       "publishedAt": "2026-07-08",
